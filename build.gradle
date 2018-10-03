@@ -1,0 +1,91 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'idea'
+    id 'maven'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+// Set our project variables
+project.ext {
+    groovyVersion = '2.3.7'
+    junitVersion = '4.11'
+    log4jVersion = '1.2.17'
+    slf4jVersion = '1.7.7'
+    springVersion = '4.2.2.RELEASE'
+}
+
+mainClassName = 'com.commercehub.apartment.restservice.ApartmentApplication'
+
+repositories {
+    mavenCentral()
+    flatDir name:'ExternalJars', dirs:'tempjars'
+}
+
+dependencies {
+    compile (
+        'cglib:cglib-nodep:2.2',
+
+        'com.fasterxml.jackson.core:jackson-core:2.6.3',
+        'com.fasterxml.jackson.core:jackson-annotations:2.6.3',
+        'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.3',
+
+        'commons-dbcp:commons-dbcp:1.2.2',
+
+        "org.codehaus.groovy:groovy-all:${groovyVersion}",
+    )
+
+    testCompile (
+        'cglib:cglib-nodep:2.2',
+        'org.spockframework:spock-core:1.0-groovy-2.4',
+    )
+}
+
+shadowJar{
+    baseName = 'artist-rankings'
+    classifier = 'standalone'
+
+    mergeServiceFiles()
+    mergeGroovyExtensionModules()
+
+    exclude "META-INF/*.DSA"
+    exclude "META-INF/*.RSA"
+
+    append('META-INF/spring.handlers')
+    append('META-INF/spring.schemas')
+}
+
+jar{
+    dependsOn 'check'
+    manifest {
+        attributes "Main-Class": mainClassName
+        attributes "Built-By": System.getProperty("user.name")
+        attributes "Build-Jdk": System.getProperty("java.version")
+        [
+            "BUILD_ID": "Build-Id",
+            "BUILD_NUMBER": "Build-Number",
+            "GIT_COMMIT": "Git-Commit",
+            "GIT_BRANCH": "Git-Branch",
+            "APP_VERSION": "App-Version",
+            "KICKED_OFF_BY": "Kicked-Off-By"
+        ].each { envVar, attrName ->
+            def envVal = System.getenv(envVar)
+            if (envVal) {
+                attributes([(attrName): envVal])
+            } else {
+                println("Couldn't locate a value for ${envVar}.")
+            }
+        }
+    }
+}
+
+assemble.dependsOn shadowJar
+
+//wrapper
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5'
+}

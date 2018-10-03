@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="me.phen.artistRankings.service.MergerImplSpec" tests="4" skipped="0" failures="0" errors="0" timestamp="2018-08-01T00:44:16" hostname="phen-laptop3" time="0.283">
+  <properties/>
+  <testcase name="Test merging with and without leading 'The'" classname="me.phen.artistRankings.service.MergerImplSpec" time="0.185"/>
+  <testcase name="Test merging artist with multiple names." classname="me.phen.artistRankings.service.MergerImplSpec" time="0.006"/>
+  <testcase name="Test merging duplicate names." classname="me.phen.artistRankings.service.MergerImplSpec" time="0.012"/>
+  <testcase name="Test merging artist with multiple names, populated month maps." classname="me.phen.artistRankings.service.MergerImplSpec" time="0.079"/>
+  <system-out><![CDATA[
+
+Incoming artists
+The Beatles
+Beatles
+
+
+Midway artists
+Beatles
+
+
+Outgoing artists
+Beatles
+
+
+Incoming artists
+The Rascals
+Rascals
+The Young Rascals
+Young Rascals
+
+
+Midway artists
+Rascals
+Young Rascals
+
+
+Outgoing artists
+[Young] Rascals
+
+
+Incoming artists
+Young Rascals
+Young Rascals
+Young Rascals
+
+
+Midway artists
+Young Rascals
+
+
+Outgoing artists
+[Young] Rascals
+
+
+Incoming artists
+The Rascals
+Rascals
+The Young Rascals
+Young Rascals
+
+
+Midway artists
+Rascals
+Young Rascals
+
+
+Outgoing artists
+[Young] Rascals
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

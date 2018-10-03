@@ -1,0 +1,4 @@
+Application name	Artist Rankings.
+API key	1bbe422e8508a18ec31661242f22ec28
+Shared secret	47a75b332e1503e5ff61f9ca4684b959
+Registered to	nynascar

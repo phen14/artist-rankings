@@ -1,0 +1,157 @@
+# 98 Degrees
+98º = 98 Degrees
+
+# Billy J. Kramer & the Dakotas
+Billy J. Kramer & The Dakotas = Billy J. Kramer [& the Dakotas]
+Billy J. Kramer               = Billy J. Kramer [& the Dakotas]
+
+# Blackstreet
+Blackstreet featuring Dr. Dre and Queen Pen = Blackstreet
+
+# Blaque
+Blaque featuring JC Chasez = Blaque
+
+# Bobby Vee
+Bobby Vee & The Strangers = Bobby Vee [& the Strangers]
+Bobby Vee                 = Bobby Vee [& the Strangers]
+
+# Buddy Holly & the Crickets
+Buddy Holly                = Buddy Holly / The Crickets
+Buddy Holly & The Crickets = Buddy Holly / The Crickets
+Crickets                   = Buddy Holly / The Crickets
+
+# Cher Lloyd
+Cher Lloyd featuring T.I. = Cher Lloyd
+
+# CSNY
+Crosby, Stills & Nash        = Crosby, Stills, Nash [& Young]
+Crosby, Stills, Nash & Young = Crosby, Stills, Nash [& Young]
+
+# DJ Sammy
+DJ Sammy & Yanou = DJ Sammy featuring Yanou & Do
+DJ Sammy         = DJ Sammy featuring Yanou & Do
+
+# Delaney & Bonnie & Friends
+Delaney & Bonnie = Delaney & Bonnie & Friends
+
+# Diana Ross & the Supremes
+Diana Ross and the Supremes = [Diana Ross & the] Supremes
+Supremes                    = [Diana Ross & the] Supremes
+
+# Dion & the Belmonts
+Dion                = Dion [& the Belmonts]
+Dion & the Belmonts = Dion [& the Belmonts]
+Dion & The Belmonts = Dion [& the Belmonts]
+
+# Dove Cameron
+Dove Cameron featuring Christina Grimmie & Baby Kaely = Dove Cameron
+
+# Frankie Lymon and the Teenagers
+Frankie Lymon                   = Frankie Lymon and the Teenagers
+Frankie Lymon and The Teenagers = Frankie Lymon and the Teenagers
+
+# Frankie Valli & the Four Seasons
+Four Seasons                     = Frankie Valli [& the Four Seasons]
+Frankie Valli                    = Frankie Valli [& the Four Seasons]
+Frankie Valli & the Four Seasons = Frankie Valli [& the Four Seasons]
+
+# Gary Puckett & The Union Gap
+Gary Puckett                 = Gary Puckett & the Union Gap
+Gary Puckett & The Union Gap = Gary Puckett & the Union Gap
+
+# Gene Vincent & His Blue Caps
+Gene Vincent = Gene Vincent & His Blue Caps
+
+# Gloria Estefan / Miami Sound Machine
+Gloria Estefan                       = Gloria Estefan [& Miami Sound Machine]
+Gloria Estefan & Miami Sound Machine = Gloria Estefan [& Miami Sound Machine]
+Miami Sound Machine                  = Gloria Estefan [& Miami Sound Machine]
+
+# Go-Go's
+Go-Go?s = Go-Go's
+
+# Gwen Stefani / No Doubt
+Gwen Stefani = Gwen Stefani / No Doubt
+No Doubt     = Gwen Stefani / No Doubt
+
+# Herb Alpert
+Herb Alpert = Herb Alpert [& the Tijuana Brass]
+Herb Alpert & the Tijuana Brass = Herb Alpert [& the Tijuana Brass]
+
+# Kylie
+Kylie Minogue & Jason Donovan = Kylie Minogue
+
+# Little Anthony & the Imperials
+Little Anthony = Little Anthony & the Imperials
+
+# Mitch Miller & His Orchestra & Chorus
+Mitch Miller = Mitch Miller & His Orchestra & Chorus
+
+# Paul McCartney
+Paul & Linda McCartney = Paul McCartney
+
+# Phil Collins / Genesis
+Genesis      = Phil Collins / Genesis
+Phil Collins = Phil Collins / Genesis
+
+# Pink
+Pink = P!nk
+
+# Rascals
+Rascals       = [Young] Rascals
+Young Rascals = [Young] Rascals
+
+# Ricky Nelson
+Rick Nelson                         = Ricky Nelson
+Rick Nelson & The Stone Canyon Band = Ricky Nelson
+
+# Sabrina Carpenter
+Lost Kings featuring Sabrina Carpenter = Sabrina Carpenter
+Rowan Blanchard                        = Sabrina Carpenter
+Rowan Blanchard & Sabrina Carpenter    = Sabrina Carpenter
+Sabrina Carpenter & Jonas Blue         = Sabrina Carpenter
+
+# S Club
+S Club   = S Club [7]
+S Club 7 = S Club [7]
+
+# Selena Gomez
+Selena Gomez             = Selena Gomez [& the Scene]
+Selena Gomez & the Scene = Selena Gomez [& the Scene]
+
+# Sound of Music
+Charmian Carr            = Sound of Music
+Children And The Captain = Sound of Music
+Children                 = Sound of Music
+Chorus & Orchestra       = Sound of Music
+Chorus and Orchestra     = Sound of Music
+Julie Andrews            = Sound of Music
+Rolf and Liesl           = Sound of Music
+
+# SWV
+SWV-Sisters = SWV
+
+# Tina Turner
+Ike & Tina Turner = Tina Turner
+
+# Tom Petty & the Heartbreakers
+Tom Petty                       = Tom Petty [& the Heartbreakers]
+Tom Petty and The Heartbreakers = Tom Petty [& the Heartbreakers]
+
+# Tommy Dee & Carol Kay
+Tommy Dee with Carol Kay = Tommy Dee & Carol Kay
+
+# Tony Orlando & Dawn
+Tony Orlando = Tony Orlando & Dawn
+
+
+
+
+
+
+
+
+
+
+
+
