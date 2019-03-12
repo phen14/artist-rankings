@@ -20,12 +20,14 @@ public class TextExporter implements Exporter {
         int countWidth = String.valueOf(count).length();
 
         int i = 0;
+
+        System.out.println("\n\n\nResults\n-------");
         for (ArtistSnapshot snapshot : snapshots) {
             if (i >= count || i >= max) {
                 return;
             }
             System.out.println(formatSnapshot(snapshot, countWidth, ++i));
-        };
+        }
     }
 
     /**

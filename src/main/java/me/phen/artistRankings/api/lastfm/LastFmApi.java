@@ -11,6 +11,8 @@ import me.phen.artistRankings.api.lastfm.model.LastFmRecentTrackResponse;
 import me.phen.artistRankings.api.lastfm.model.LastFmTopArtistResponse;
 import me.phen.artistRankings.api.lastfm.model.LastFmTrack;
 import me.phen.artistRankings.model.Track;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,6 +34,7 @@ import java.util.stream.Collectors;
  * @since 2017-12-23 Sa
  */
 public class LastFmApi implements ScrobberApi {
+    private static final Logger log = LoggerFactory.getLogger(LastFmApi.class);
 
     private LastFmConfiguration config;
 
@@ -68,7 +71,7 @@ public class LastFmApi implements ScrobberApi {
 
         String content = getContent(url);
         LastFmTopArtistResponse response = mapper.readValue(content, LastFmTopArtistResponse.class);
-        System.out.println(response);
+        log.debug(response.toString());
 
         return response;
     }
@@ -87,10 +90,9 @@ public class LastFmApi implements ScrobberApi {
         List<LastFmTrack> tracks = new ArrayList<>();
         int currentPage = 1;
         int totalPages = Integer.MAX_VALUE;
-        System.out.print("Querying");
         while (currentPage <= totalPages) {
             try {
-                System.out.print(".");
+                log.info("Querying page {} of {}", currentPage, (currentPage == 1) ? "--" : totalPages);
                 String query = MessageFormat.format(RECENT_TRACK_QUERY, config.getBaseUrl(), config.getUser(), config.getApiKey(),
                         startSeconds, endSeconds, currentPage);
                 URL url = new URL(query);
@@ -106,7 +108,6 @@ public class LastFmApi implements ScrobberApi {
                 throw new RuntimeException(e.getMessage());
             }
         }
-        System.out.println();
 
         return tracks.stream().map(LastFmTrack::toTrack).collect(Collectors.toList());
     }
@@ -128,7 +129,7 @@ public class LastFmApi implements ScrobberApi {
 
                 int status = con.getResponseCode();
                 if (status != 200) {
-                    throw new RuntimeException("Error.  Response code " + status);
+                    throw new RuntimeException("Error.  " + status + ":" + con.getResponseMessage());
                 }
 
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));

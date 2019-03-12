@@ -13,6 +13,8 @@ import me.phen.artistRankings.service.adjust.Adjuster;
 import me.phen.artistRankings.service.adjust.ArticleFixer;
 import me.phen.artistRankings.service.adjust.Ignorer;
 import me.phen.artistRankings.service.adjust.Merger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -31,6 +33,8 @@ import java.util.Set;
  * @since 2017-12-30 Sa
  */
 public class RankerImpl implements Ranker {
+    private static final Logger log = LoggerFactory.getLogger(RankerImpl.class);
+
     protected List<Adjuster> adjusters;
     protected ScrobberApi api;
 
@@ -56,15 +60,14 @@ public class RankerImpl implements Ranker {
         List<Track> tracks = api.getTracks(startDate, endDate);
         Map<String, Artist> artistsToTracks = new HashMap<>();
 
-        System.out.print("Sorting");
+        log.debug("Sorting.");
         tracks.forEach(track -> {
-            System.out.print(".");
+            log.trace("Sorting track {}", track);
             String artist = track.getArtist();
             artistsToTracks
                     .computeIfAbsent(artist, it ->new Artist(artist))
                     .addTrack(track);
         });
-        System.out.println();
 
         Set<Artist> artists = new HashSet<>(artistsToTracks.values());
         adjusters.forEach(adjuster -> adjuster.adjust(artists));

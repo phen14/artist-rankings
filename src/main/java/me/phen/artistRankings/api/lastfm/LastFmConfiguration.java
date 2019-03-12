@@ -2,6 +2,8 @@
 
 package me.phen.artistRankings.api.lastfm;
 
+import me.phen.artistRankings.boom.ConfigurationException;
+
 import java.util.Properties;
 
 /**
@@ -41,7 +43,7 @@ public class LastFmConfiguration {
     private String getValue(Properties props, String key) {
         String value = props.getProperty(key);
         if (value == null) {
-            throw new RuntimeException("Missing Last.fm property [" + key + "].");
+            throw new ConfigurationException("Missing Last.fm property [" + key + "].");
         }
         return value;
     }
