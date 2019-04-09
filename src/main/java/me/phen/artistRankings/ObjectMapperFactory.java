@@ -1,6 +1,7 @@
 package me.phen.artistRankings;
 
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -29,7 +30,7 @@ public class ObjectMapperFactory {
             objectMapper.configure(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS, true);
             objectMapper.configure(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE, false);
             objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-            objectMapper.configure(SerializationFeature.WRITE_BIGDECIMAL_AS_PLAIN, true);
+            objectMapper.configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, true);
 
             SimpleModule module = new SimpleModule();
             module.setDeserializerModifier(new BeanDeserializerModifier() {

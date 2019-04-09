@@ -26,7 +26,7 @@ public class ArtistRankingsApplication {
         Ranker service = injector.getInstance(Ranker.class);
         Exporter exporter = injector.getInstance(TextExporter.class);
 
-        List<ArtistSnapshot> rankings = service.getYearlyRankings(YearMonth.of(2019, 2));// Last of the 12 months
+        List<ArtistSnapshot> rankings = service.getYearlyRankings(YearMonth.of(2019, 3));// Last of the 12 months
         exporter.export(rankings, 30);
     }
 }

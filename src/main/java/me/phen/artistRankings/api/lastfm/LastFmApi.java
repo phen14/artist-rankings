@@ -129,7 +129,7 @@ public class LastFmApi implements ScrobberApi {
 
                 int status = con.getResponseCode();
                 if (status != 200) {
-                    throw new RuntimeException("Error.  " + status + ":" + con.getResponseMessage());
+                    throw new RuntimeException("Error.  " + status + ": " + con.getResponseMessage());
                 }
 
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
