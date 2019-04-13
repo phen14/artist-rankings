@@ -18,12 +18,12 @@ import java.util.Map;
  * Remove ignored artists from the entry list.
  *
  * @author Patrick W. Henstebeck
- * @since 2019-03-02 Sa
+ * @since 2019-03-02 (Sa)
  */
 public class Ignorer implements Adjuster {
     private static final String DEFAULT_FILE_NAME = "adjustments/ignores.txt";
 
-    private final List<String> ignores;
+    private List<String> ignores;
 
     /**
      * Initialize the class and prepare the merger list from the default file.
@@ -37,11 +37,14 @@ public class Ignorer implements Adjuster {
      */
     public Ignorer(String fileName) {
         ignores = new ArrayList<>();
+        fileName = (fileName == null) ? DEFAULT_FILE_NAME : fileName;
         this.loadIgnores(fileName);
     }
 
     /**
      * Load the list of artists that should be ignored.
+     *
+     * @param fileName Path to the file for ignores.  Expected to not be null.
      */
     protected void loadIgnores(String fileName) {
         try {
@@ -67,7 +70,7 @@ public class Ignorer implements Adjuster {
     /**
      * Remove entries that are marked to be ignored.
      *
-     * @param artists List of artists. List is altered in place.
+     * @param artists List of artists. List is altered in place.  Expected to not be null.
      */
     protected void ignoreArtists(Collection<Artist> artists) {
         Map<String, Artist> artistMap = new HashMap<>();
@@ -83,7 +86,18 @@ public class Ignorer implements Adjuster {
      * {@inheritDoc}
      */
     public Collection<Artist> adjust(Collection<Artist> artists) {
-        ignoreArtists(artists);
+        if (artists != null) {
+            ignoreArtists(artists);
+        }
         return artists;
+    }
+
+    /**
+     * Overwrite the ignores list.  For testing only.
+     *
+     * @param ignores The ignores to set.
+     */
+    protected void setIgnores(List<String> ignores) {
+        this.ignores = ignores;
     }
 }

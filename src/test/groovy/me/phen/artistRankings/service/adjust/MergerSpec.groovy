@@ -7,10 +7,10 @@ import spock.lang.Specification
 import java.time.LocalDateTime
 
 /**
- * Test of the MergerImpl class.
+ * Test of the Merger class.
  *
  * @author Patrick W. Henstebeck
- * @since 2018-07-29 Su
+ * @since 2018-07-29 (Su)
  */
 class MergerSpec extends Specification {
 
