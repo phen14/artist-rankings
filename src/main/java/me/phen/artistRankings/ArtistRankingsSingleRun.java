@@ -16,9 +16,9 @@ import java.util.List;
  * Run the damn thing.
  *
  * @author Patrick W. Henstebeck
- * @since 2018-02-11 Su
+ * @since 2018-02-11 (Su)
  */
-public class ArtistRankingsApplication {
+public class ArtistRankingsSingleRun {
 
     public static void main(String... args) {
         Injector injector = Guice.createInjector(new ArtistRankingsGuiceModule());
@@ -26,7 +26,7 @@ public class ArtistRankingsApplication {
         Ranker service = injector.getInstance(Ranker.class);
         Exporter exporter = injector.getInstance(TextExporter.class);
 
-        List<ArtistSnapshot> rankings = service.getYearlyRankings(YearMonth.of(2019, 3));// Last of the 12 months
+        List<ArtistSnapshot> rankings = service.getYearlyRankings(YearMonth.of(2019, 4));// Last of the 12 months
         exporter.export(rankings, 30);
     }
 }

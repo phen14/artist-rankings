@@ -18,7 +18,7 @@ import java.util.Map;
  * Merge Last.fm artists together into a single Artist.
  *
  * @author Patrick W. Henstebeck
- * @since 2018-02-11 Su
+ * @since 2018-02-11 (Su)
  */
 public class Merger implements Adjuster {
     private static final String DEFAULT_FILE_NAME = "adjustments/mergers.txt";
