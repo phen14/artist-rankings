@@ -13,6 +13,4 @@ logging:
   loggers:
     "org.springframework": WARN
 
-authFailOpenEnabled: true
-
-authenticationCachePolicy: maximumSize=10000, expireAfterAccess=10m
+                                          I

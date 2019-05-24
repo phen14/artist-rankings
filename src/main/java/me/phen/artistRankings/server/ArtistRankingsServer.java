@@ -2,6 +2,7 @@
 
 package me.phen.artistRankings.server;
 
+import com.hubspot.dropwizard.guicier.GuiceBundle;
 import io.dropwizard.Application;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
@@ -9,8 +10,13 @@ import io.dropwizard.setup.Environment;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
+import me.phen.artistRankings.ArtistRankingsGuiceModule;
 import me.phen.artistRankings.server.exception.ExceptionHandler;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.logging.LoggingFeature;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Run the thing.
@@ -35,8 +41,13 @@ public class ArtistRankingsServer extends Application<ServerConfiguration> {
     public void initialize(Bootstrap<ServerConfiguration> bootstrap) {
         //bootstrap.addCommand(new RenderCommand())
         //bootstrap.addBundle(new AssetsBundle("/assets/api-front-end", ""))
-    }
 
+        GuiceBundle<ServerConfiguration> guiceBundle = GuiceBundle.defaultBuilder(ServerConfiguration.class)
+                .modules(new ArtistRankingsGuiceModule())
+                .build();
+
+        bootstrap.addBundle(guiceBundle);
+    }
     /**
      * {@inheritDoc}
      */
@@ -46,11 +57,15 @@ public class ArtistRankingsServer extends Application<ServerConfiguration> {
         registerJerseyResources(configuration, environment.jersey());
     }
 
-    private void registerJerseyResources(ServerConfiguration configuration, JerseyEnvironment environment) {
-        environment.register(ExceptionHandler.class);
+    private void registerJerseyResources(ServerConfiguration configuration, JerseyEnvironment jersey) {
+        jersey.register(ExceptionHandler.class);
+        jersey.packages(getClass().getPackage().getName());
 
-//        environment.getResourceConfig().getContainerRequestFilters().add(new CustomLoggingFilter());
-//        environment.getResourceConfig().getContainerResponseFilters().add(new CustomLoggingFilter());
+        jersey.register(new LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME), Level.INFO,
+                LoggingFeature.Verbosity.PAYLOAD_ANY, Integer.MAX_VALUE));
+
+//        jersey.getResourceConfig().getContainerRequestFilters().add(new CustomLoggingFilter());
+//        jersey.getResourceConfig().getContainerResponseFilters().add(new CustomLoggingFilter());
     }
 
     private void registerSwagger(Environment environment) {
