@@ -24,9 +24,10 @@ public class ArtistRankingsSingleRun {
         Injector injector = Guice.createInjector(new ArtistRankingsGuiceModule());
 
         Ranker service = injector.getInstance(Ranker.class);
-        Exporter exporter = injector.getInstance(TextExporter.class);
+        Exporter<String> exporter = injector.getInstance(TextExporter.class);
 
         List<ArtistSnapshot> rankings = service.getYearlyRankings(YearMonth.of(2019, 4));// Last of the 12 months
-        exporter.export(rankings, 30);
+        String results = exporter.export(rankings, 30);
+        System.out.println(results);
     }
 }

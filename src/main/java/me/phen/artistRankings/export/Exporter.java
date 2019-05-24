@@ -10,7 +10,7 @@ import java.util.List;
  * @author Patrick W. Henstebeck
  * @since 2018-02-11 Su
  */
-public interface Exporter {
+public interface Exporter<T> {
 
     /**
      * Export the data.
@@ -18,5 +18,5 @@ public interface Exporter {
      * @param snapshots List of artist snapshots in the order they will be exported.
      * @param max The highest number ranking to include.
      */
-    void export(List<ArtistSnapshot> snapshots, int max);
+    T export(List<ArtistSnapshot> snapshots, int max);
 }

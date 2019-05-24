@@ -1,5 +1,6 @@
 package me.phen.artistRankings.export;
 
+import com.google.inject.Inject;
 import me.phen.artistRankings.model.ArtistSnapshot;
 
 import java.util.List;
@@ -10,24 +11,32 @@ import java.util.List;
  * @author Patrick W. Henstebeck
  * @since 2018-02-11 Su
  */
-public class TextExporter implements Exporter {
+public class TextExporter implements Exporter<String> {
+
+    @Inject
+    public TextExporter() {
+    }
 
     /**
      * {@inheritDoc}
      */
-    public void export(List<ArtistSnapshot> snapshots, int max) {
+    public String export(List<ArtistSnapshot> snapshots, int max) {
         int count = snapshots.size();
         int countWidth = String.valueOf(count).length();
 
         int i = 0;
 
-        System.out.println("\n\n\nResults\n-------");
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n\n\nResults\n-------\n");
         for (ArtistSnapshot snapshot : snapshots) {
             if (i >= count || i >= max) {
-                return;
+                break;
             }
-            System.out.println(formatSnapshot(snapshot, countWidth, ++i));
+            sb.append(formatSnapshot(snapshot, countWidth, ++i));
         }
+
+        return sb.toString();
     }
 
     /**
@@ -45,7 +54,7 @@ public class TextExporter implements Exporter {
         int added = snapshot.getAdded();
         int defending = snapshot.getDefending();
 
-        return String.format("%" + indexWidth + "s | %s: %d (%d), New: (%d), Defending: (%d)",
+        return String.format("%" + indexWidth + "s | %s: %d (%d), New: (%d), Defending: (%d)\n",
                 index, artist, count, change, added, defending);
     }
 }
