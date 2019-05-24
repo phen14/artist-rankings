@@ -1,3 +1,5 @@
+// (K) ALL RIGHTS REVERSED - Reprint what you like
+
 package me.phen.artistRankings.boom;
 
 /**

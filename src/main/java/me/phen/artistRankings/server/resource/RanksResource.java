@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import me.phen.artistRankings.export.Exporter;
 import me.phen.artistRankings.model.ArtistSnapshot;
+import me.phen.artistRankings.server.model.Rankings;
 import me.phen.artistRankings.service.Ranker;
 
 import javax.ws.rs.GET;
@@ -22,14 +23,34 @@ import java.util.List;
 
 @Path("/ranks")
 @Api(value = "/ranks", description = "Ranks")
-@Produces(MediaType.TEXT_PLAIN)
+@Produces(MediaType.APPLICATION_JSON)
 public class RanksResource {
 
     @Inject
     protected Ranker ranker;
 
     @Inject
+    protected Exporter<Rankings> jsonExporter;
+
+    @Inject
     protected Exporter<String> textExporter;
+
+    @GET
+    @Timed
+    @Path("/year-ending/year/{year}/month/{month}/json")
+    @ApiOperation(
+            value = "Get yearly rankings in JSON format.",
+            response = Rankings.class
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid ID supplied."),
+            @ApiResponse(code = 500, message = "Unknown error.")
+    })
+    public Rankings getYearlyRanksInJsonFormat(@PathParam("year") int year, @PathParam("month") int month) {
+        YearMonth yearEnding = YearMonth.of(year, month);
+        List<ArtistSnapshot> rankings = ranker.getYearlyRankings(yearEnding);
+        return jsonExporter.export(rankings, 30);
+    }
 
     @GET
     @Timed
