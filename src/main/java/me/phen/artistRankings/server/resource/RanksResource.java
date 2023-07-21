@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import me.phen.artistRankings.export.Exporter;
 import me.phen.artistRankings.model.ArtistSnapshot;
-import me.phen.artistRankings.server.model.HtmlResponse;
 import me.phen.artistRankings.server.model.Rankings;
 import me.phen.artistRankings.service.Ranker;
 
@@ -32,9 +31,6 @@ public class RanksResource {
 
     @Inject
     protected Exporter<Rankings> jsonExporter;
-
-    @Inject
-    protected Exporter<HtmlResponse> htmlExporter;
 
     @Inject
     protected Exporter<String> textExporter;
@@ -71,22 +67,5 @@ public class RanksResource {
         YearMonth yearEnding = YearMonth.of(year, month);
         List<ArtistSnapshot> rankings = ranker.getYearlyRankings(yearEnding);
         return textExporter.export(rankings, 30);
-    }
-
-    @GET
-    @Timed
-    @Path("/year-ending/year/{year}/month/{month}/html")
-    @ApiOperation(
-            value = "Get yearly rankings in HTML format.",
-            response = String.class
-    )
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Invalid ID supplied."),
-            @ApiResponse(code = 500, message = "Unknown error.")
-    })
-    public String getYearlyRanksInHtmlFormat(@PathParam("year") int year, @PathParam("month") int month) {
-        YearMonth yearEnding = YearMonth.of(year, month);
-        List<ArtistSnapshot> rankings = ranker.getYearlyRankings(yearEnding);
-        return htmlExporter.export(rankings, 30).getHtml();
     }
 }

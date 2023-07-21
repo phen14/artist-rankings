@@ -26,7 +26,7 @@ public class ArtistRankingsSingleRun {
         Ranker service = injector.getInstance(Ranker.class);
         Exporter<String> exporter = injector.getInstance(TextExporter.class);
 
-        List<ArtistSnapshot> rankings = service.getYearlyRankings(YearMonth.of(2020, 9));// Last of the 12 months
+        List<ArtistSnapshot> rankings = service.getYearlyRankings(YearMonth.of(2019, 4));// Last of the 12 months
         String results = exporter.export(rankings, 30);
         System.out.println(results);
     }
