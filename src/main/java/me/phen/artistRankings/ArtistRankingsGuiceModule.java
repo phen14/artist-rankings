@@ -10,8 +10,10 @@ import me.phen.artistRankings.api.ScrobberApi;
 import me.phen.artistRankings.api.lastfm.LastFmApi;
 import me.phen.artistRankings.api.lastfm.LastFmConfiguration;
 import me.phen.artistRankings.export.Exporter;
+import me.phen.artistRankings.export.HtmlExporter;
 import me.phen.artistRankings.export.JsonExporter;
 import me.phen.artistRankings.export.TextExporter;
+import me.phen.artistRankings.server.model.HtmlResponse;
 import me.phen.artistRankings.server.model.Rankings;
 import me.phen.artistRankings.service.Ranker;
 import me.phen.artistRankings.service.RankerImpl;
@@ -33,8 +35,9 @@ public class ArtistRankingsGuiceModule extends AbstractModule {
         bind(Ranker.class).to(RankerImpl.class);
         bind(ScrobberApi.class).to(LastFmApi.class);
 
-        bind(new TypeLiteral<Exporter<String>>(){}).to(new TypeLiteral<TextExporter>(){});
+        bind(new TypeLiteral<Exporter<HtmlResponse>>(){}).to(new TypeLiteral<HtmlExporter>(){});
         bind(new TypeLiteral<Exporter<Rankings>>(){}).to(new TypeLiteral<JsonExporter>(){});
+        bind(new TypeLiteral<Exporter<String>>(){}).to(new TypeLiteral<TextExporter>(){});
     }
 
     @Provides

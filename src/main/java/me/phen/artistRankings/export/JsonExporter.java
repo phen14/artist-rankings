@@ -10,7 +10,7 @@ import me.phen.artistRankings.server.model.Rankings;
 import java.util.List;
 
 /**
- * Export the rankings to plain text.
+ * Export the rankings to JSON.
  *
  * @author Patrick W. Henstebeck
  * @since 2018-02-11 Su

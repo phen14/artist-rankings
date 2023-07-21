@@ -30,10 +30,13 @@ public class TextExporter implements Exporter<String> {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("\n\n\nResults\n-------\n");
+        sb.append("\n\n\nResults\n");
         for (ArtistSnapshot snapshot : snapshots) {
             if (i >= count || i >= max) {
                 break;
+            }
+            if (i % 5 == 0) {
+                sb.append("-------\n");
             }
             sb.append(formatSnapshot(snapshot, countWidth, ++i));
         }
@@ -56,7 +59,7 @@ public class TextExporter implements Exporter<String> {
         int added = snapshot.getAdded();
         int defending = snapshot.getDefending();
 
-        return String.format("%" + indexWidth + "s | %s: %d (%d), New: (%d), Defending: (%d)\n",
+        return String.format("%" + indexWidth + "s | %35s: %3d (%3d), New: (%2d), Defending: (%2d)\n",
                 index, artist, count, change, added, defending);
     }
 }
