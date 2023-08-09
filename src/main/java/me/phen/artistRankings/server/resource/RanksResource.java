@@ -15,7 +15,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import me.phen.artistRankings.export.Exporter;
 import me.phen.artistRankings.model.ArtistSnapshot;
-import me.phen.artistRankings.server.model.HtmlResponse;
 import me.phen.artistRankings.server.model.Rankings;
 import me.phen.artistRankings.service.Ranker;
 
@@ -31,9 +30,6 @@ public class RanksResource {
 
     @Inject
     protected Exporter<Rankings> jsonExporter;
-
-    @Inject
-    protected Exporter<HtmlResponse> htmlExporter;
 
     @Inject
     protected Exporter<String> textExporter;
@@ -62,18 +58,5 @@ public class RanksResource {
         YearMonth yearEnding = YearMonth.of(year, month);
         List<ArtistSnapshot> rankings = ranker.getYearlyRankings(yearEnding);
         return textExporter.export(rankings, 30);
-    }
-
-    @GET
-    @Timed
-    @Path("/year-ending/year/{year}/month/{month}/html")
-    @Operation(
-            summary = "Get yearly rankings in HTML format.",
-            responses = {@ApiResponse(content = @Content(schema = @Schema(implementation = String.class)))}
-    )
-    public String getYearlyRanksInHtmlFormat(@PathParam("year") int year, @PathParam("month") int month) {
-        YearMonth yearEnding = YearMonth.of(year, month);
-        List<ArtistSnapshot> rankings = ranker.getYearlyRankings(yearEnding);
-        return htmlExporter.export(rankings, 30).getHtml();
     }
 }
