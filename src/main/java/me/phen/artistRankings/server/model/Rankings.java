@@ -3,8 +3,7 @@
 package me.phen.artistRankings.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -16,17 +15,17 @@ import java.util.List;
  * @author Patrick W. Henstebeck
  * @since 2019-05-24 (Fr)
  */
-@ApiModel(value = "Rankings", description = "Artist Rankings for a specified period.")
+@Schema($schema = "Rankings", description = "Artist Rankings for a specified period.")
 @JsonIgnoreProperties({"metaClass"})
 public class Rankings {
 
-    @ApiModelProperty(value = "Name", required = true)
+    @Schema(description = "Name", required = true)
     private LocalDate end;
 
-    @ApiModelProperty(value = "Name", required = true)
+    @Schema(description = "Name", required = true)
     private LocalDate start;
 
-    @ApiModelProperty(value = "Rank", required = true)
+    @Schema(description = "Rank", required = true)
     private List<RankedArtist> rankings;
 
     /**

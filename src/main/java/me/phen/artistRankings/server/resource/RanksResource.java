@@ -4,25 +4,24 @@ package me.phen.artistRankings.server.resource;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import me.phen.artistRankings.export.Exporter;
 import me.phen.artistRankings.model.ArtistSnapshot;
 import me.phen.artistRankings.server.model.Rankings;
 import me.phen.artistRankings.service.Ranker;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import java.time.YearMonth;
 import java.util.List;
 
 @Path("/ranks")
-@Api(value = "/ranks", description = "Ranks")
 @Produces(MediaType.APPLICATION_JSON)
 public class RanksResource {
 
@@ -38,14 +37,10 @@ public class RanksResource {
     @GET
     @Timed
     @Path("/year-ending/year/{year}/month/{month}/json")
-    @ApiOperation(
-            value = "Get yearly rankings in JSON format.",
-            response = Rankings.class
+    @Operation(
+            summary = "Get yearly rankings in JSON format.",
+            responses = {@ApiResponse(content = @Content(schema = @Schema(implementation = Rankings.class)))}
     )
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Invalid ID supplied."),
-            @ApiResponse(code = 500, message = "Unknown error.")
-    })
     public Rankings getYearlyRanksInJsonFormat(@PathParam("year") int year, @PathParam("month") int month) {
         YearMonth yearEnding = YearMonth.of(year, month);
         List<ArtistSnapshot> rankings = ranker.getYearlyRankings(yearEnding);
@@ -55,14 +50,10 @@ public class RanksResource {
     @GET
     @Timed
     @Path("/year-ending/year/{year}/month/{month}/text")
-    @ApiOperation(
-            value = "Get yearly rankings in text format.",
-            response = String.class
+    @Operation(
+            summary = "Get yearly rankings in text format.",
+            responses = {@ApiResponse(content = @Content(schema = @Schema(implementation = String.class)))}
     )
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Invalid ID supplied."),
-            @ApiResponse(code = 500, message = "Unknown error.")
-    })
     public String getYearlyRanksInTextFormat(@PathParam("year") int year, @PathParam("month") int month) {
         YearMonth yearEnding = YearMonth.of(year, month);
         List<ArtistSnapshot> rankings = ranker.getYearlyRankings(yearEnding);

@@ -2,26 +2,30 @@
 
 package me.phen.artistRankings.server;
 
-import com.hubspot.dropwizard.guicier.GuiceBundle;
-import io.dropwizard.Application;
+import io.dropwizard.core.Application;
+import io.dropwizard.core.Configuration;
+import io.dropwizard.core.setup.Bootstrap;
+import io.dropwizard.core.setup.Environment;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-import io.swagger.jaxrs.config.BeanConfig;
-import io.swagger.jaxrs.listing.ApiListingResource;
-import io.swagger.jaxrs.listing.SwaggerSerializers;
+import io.swagger.v3.jaxrs2.SwaggerSerializers;
+import io.swagger.v3.oas.integration.SwaggerConfiguration;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import me.phen.artistRankings.ArtistRankingsGuiceModule;
 import me.phen.artistRankings.server.exception.ExceptionHandler;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.logging.LoggingFeature;
+import ru.vyarus.dropwizard.guice.GuiceBundle;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Run the thing.
  */
-public class ArtistRankingsServer extends Application<ServerConfiguration> {
+public class ArtistRankingsServer extends Application<Configuration> {
 
     //If no args, use these as a default
     private static final String[] defaultArgs = new String[] {"server", "./src/main/resources/artist-rankings.yml"};
@@ -38,26 +42,20 @@ public class ArtistRankingsServer extends Application<ServerConfiguration> {
      * {@inheritDoc}
      */
     @Override
-    public void initialize(Bootstrap<ServerConfiguration> bootstrap) {
-        //bootstrap.addCommand(new RenderCommand())
-        //bootstrap.addBundle(new AssetsBundle("/assets/api-front-end", ""))
-
-        GuiceBundle<ServerConfiguration> guiceBundle = GuiceBundle.defaultBuilder(ServerConfiguration.class)
-                .modules(new ArtistRankingsGuiceModule())
-                .build();
-
+    public void initialize(Bootstrap<Configuration> bootstrap) {
+        GuiceBundle guiceBundle = GuiceBundle.builder().modules(new ArtistRankingsGuiceModule()).build();
         bootstrap.addBundle(guiceBundle);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public void run(ServerConfiguration configuration, Environment environment) throws ClassNotFoundException {
+    public void run(Configuration configuration, Environment environment) {
         registerSwagger(environment);
         registerJerseyResources(configuration, environment.jersey());
     }
 
-    private void registerJerseyResources(ServerConfiguration configuration, JerseyEnvironment jersey) {
+    private void registerJerseyResources(Configuration configuration, JerseyEnvironment jersey) {
         jersey.register(ExceptionHandler.class);
         jersey.packages(getClass().getPackage().getName());
 
@@ -69,19 +67,16 @@ public class ArtistRankingsServer extends Application<ServerConfiguration> {
     }
 
     private void registerSwagger(Environment environment) {
-        environment.jersey().register(new ApiListingResource());
-        environment.jersey().register(new SwaggerSerializers());
+//        environment.jersey().register(new SwaggerSerializers());
 
-        BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion("1.0.1");
-        beanConfig.setSchemes(new String[]{"http"});
-        beanConfig.setHost("localhost:8080");
-        beanConfig.setBasePath("/");
-        beanConfig.setResourcePackage("me.phen.artistRankings.server.resource");
-        beanConfig.setScan(true);
+        SwaggerConfiguration oasConfig = new SwaggerConfiguration()
+                .openAPI(new OpenAPI())
+                .prettyPrint(true)
+                .resourcePackages(Stream.of("me.phen.artistRankings.server.resource").collect(Collectors.toSet()));
+
+        environment.jersey().register(oasConfig);
 
         //Configure CORS for Swagger-UI Server
-
         environment.servlets()
                 .addFilter("cross-origins-filter", CrossOriginFilter.class)
                 .addMappingForUrlPatterns(null, false, "/*");

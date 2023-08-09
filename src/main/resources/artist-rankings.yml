@@ -12,5 +12,3 @@ logging:
 
   loggers:
     "org.springframework": WARN
-
-                                          I

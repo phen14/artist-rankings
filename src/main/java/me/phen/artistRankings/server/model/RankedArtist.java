@@ -3,8 +3,7 @@
 package me.phen.artistRankings.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Representation of an artist in the rankings.
@@ -12,26 +11,26 @@ import io.swagger.annotations.ApiModelProperty;
  * @author Patrick W. Henstebeck
  * @since 2019-05-24 (Fr)
  */
-@ApiModel(value = "RankedArtist", description = "Representation of an artist in the rankings.")
+@Schema($schema = "RankedArtist", description = "Representation of an artist in the rankings.")
 @JsonIgnoreProperties({"metaClass"})
 public class RankedArtist {
 
-    @ApiModelProperty(value = "Count in latest sub-period.")
+    @Schema(description = "Count in latest sub-period.")
     private long added;
 
-    @ApiModelProperty(value = "Change in plays since last ranking.")
+    @Schema(description = "Change in plays since last ranking.")
     private long change;
 
-    @ApiModelProperty(value = "Total Play Count", required = true)
+    @Schema(description = "Total Play Count", required = true)
     private long count;
 
-    @ApiModelProperty(value = "Count in first sub-period")
+    @Schema(description = "Count in first sub-period")
     private long defending;
 
-    @ApiModelProperty(value = "Name", required = true)
+    @Schema(description = "Name", required = true)
     private String name;
 
-    @ApiModelProperty(value = "Rank", required = true)
+    @Schema(description = "Rank", required = true)
     private int rank;
 
     /**
